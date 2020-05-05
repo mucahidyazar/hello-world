@@ -1,33 +1,14 @@
+// scope css locally
 import React from "react"
-import { Link } from "gatsby"
-
 import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
-
-import styled from "styled-components"
-
-export const ExampleButton = styled.button`
-  background: green;
-  color: orange;
-  font-size: 2rem;
-`
-
-const IndexPage = () => (
+import { ExampleButton } from "../components/button"
+export default () => (
   <Layout>
-    <SEO title="Home" />
-    <h1> Hi people </h1> <p> Welcome to your new Gatsby site. </p>{" "}
-    <p> Now go build something great. </p>{" "}
-    <div
-      style={{
-        maxWidth: `300px`,
-        marginBottom: `1.45rem`,
-      }}
-    >
-      <Image />
-    </div>{" "}
-    <Link to="/page-2/"> Go to page 2 </Link>{" "}
+    <h1 style={{ color: "green", textTransform: "uppercase" }}>
+      hello from gatsby
+    </h1>
+    <h1>hello world</h1>
+    <h1>hello people</h1>
+    <ExampleButton>click me</ExampleButton>
   </Layout>
 )
-
-export default IndexPage

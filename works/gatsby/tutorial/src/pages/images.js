@@ -1,9 +1,12 @@
 import React from "react"
 import Layout from "../components/layout"
-export default function error() {
+import Images from "../examples/Images"
+const images = () => {
   return (
     <Layout>
-      <h1>this is our error page</h1>
+      <Images />
     </Layout>
   )
 }
+
+export default images

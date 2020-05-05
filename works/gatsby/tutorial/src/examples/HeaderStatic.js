@@ -6,20 +6,20 @@ const ComponentName = () => (
     query={graphql`
       {
         site {
-          siteMetadata {
-            title
-            description
+          info: siteMetadata {
+            person {
+              age
+              name
+            }
             author
             data
-            person {
-              name
-              age
-            }
+            description
+            title
           }
         }
       }
     `}
-    render={(data) => <pre>{JSON.stringify(data, null, 4)}</pre>}
+    render={data => <h4>{data.site.info.description}</h4>}
   ></StaticQuery>
 )
 
