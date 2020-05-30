@@ -1,22 +1,37 @@
-// ### SELECTION SORT
-// Selection Sort ile Once buyuk sayilar siralanir.
-// Kucuk sayilar karsilastirilir ve isaretlenir, yer degistirme en son yapilir.
+// ### MERGE SORT
+// Buyuk arrayleri 100000 elemanli gibi cok cok daha hizli siralarlar buble, insertion ve selection yontemlerinden
+// Time complexity’i o(n2)’den o(n log n)’e gelistirirler
+// BOL / BIRLESTIR seklinde calisir detaylar altta.
 
-// [5,3,4,1,2]
-// Once 5 ve 3 u karsilastiririz hangisi kucuk diye. 3 kucuk oldugu icin isaretlenir.
-// Daha sonra 3 un bir sagina gecilir 3 mu kucuk 4 mu diye bakilir ve 3 hale kucuk oldugu icin isaretleme degismez.
-// Daha sonra bir sagina gecilir 1 daha kucuk oldugu icin 1 isaretlenir ve 3 un isareti kalkar.
-// Daha sonra 1 ve bir sagindaki karsilastirilir 1 hala en kucuk oldugu icin 1 isaretli kalir ve dongu biter
-// Ve bir i en basa dongunun basladigi sorgulanan elemanin onune yerlestiririz. Ve dongu tekrar baslar bu sefer ilk bastaki ile degilde 2. ve 3. siradaki ile yani indexi 1 ve 2 olanla sorgulamaya baslariz.
+// [8, 3, 5, 4, 7, 6, 1, 2]
+//Once arrayi’mizi tek eleman kalana kadar boluyoruz.
+//Daha sonra bolunmus arrayleri birlestiriyoruz sirayla. Once 8 ve 3 ‘u karsilastiriyoruz hangisi kucukse onu first item yapiyoruz hangisi buyukse onu last item yapiyoruz ve 2li arraylerimizi olusturuyoruz.
+//Daha sonra bu 2’li array’lerin 1. İtemlarini 3 ve 4 u karsilastiriyoruz. Hangisi kucukse 1. Digerini ikinci yapiyoruz. 2 li arraylerin son itemlarini karsilastiriyoruz hangici kucukse 3. Digerini 4. Yapiyoruz ve arraylerimizi yine birseltiriyoruz. Bu bu sekilde tamamlana kadar devam ediyor.
 
-//[3, 1, 2, 3, 12, 88, 95]
-//Yukaridaki array'i selectionSort yontemi ile siralayin.
+//[8, 3, 5, 4, 7, 6, 1, 2]
+//Yukaridaki array'i mergeSort yontemi ile siralayin.
 //bigO with noSwap() o(n) -- without noSwap() o(n2)
 // ### YOUR AREA
-function selectionSort(arr) {}
-console.log(selectionSort([3, 1, 2, 3, 12, 88, 95]));
+function merge(arr1, arr2) {}
+console.log(mergeSort([8, 3, 5, 4, 7, 6, 1, 2]));
 
-//
+//mergeSort([8, 3, 5, 4, 7, 6, 1, 2]) => merge([3,4,5,8], [1,2,6,7]) => [1,2,3,4,5,6,7,8]
+
+//mergeSort([8, 3, 5, 4]) merge([3,8],[4,5]) => [3,4,5,8]
+//mergeSort([8, 3])  merge([8],[3]) => [3,8]
+//mergeSort([8])
+//mergeSort([3])
+//mergeSort([5, 4]) merge([5],[4]) => [4,5]
+//mergeSort([5])
+//mergeSort([4])
+
+//mergeSort([7, 6, 1, 2]) merge([6,7],[1,2]) => [1,2,6,7]
+//mergeSort([7, 6])
+//mergeSort([7]) merge([7],[6]) => [6,7]
+//mergeSort([6])
+//mergeSort([1, 2])
+//mergeSort([1]) merge([1],[2]) => [1,2]
+//mergeSort([2])
 
 //
 
@@ -29,30 +44,52 @@ console.log(selectionSort([3, 1, 2, 3, 12, 88, 95]));
 //
 
 // ### PSEUDO CODE
-// arr.length'den geriye dogru sayan loop(x) olustur
-// lowest degiskeni tut ve loopun'x ine esitle
-// ikinci bir loop(y) olustur icinde ve y sini x+1 'e esitle
-// if kosulu olustur bu loopun icinde ve arr[y] nin arr[lowest]'dan kucuk olup olmadigini sorgula
-// Kucukse lowest = y yap. (Iste isaretleme denilen sey bir nevi bu oluyor)
-// 2. loopun disina cik ve alt satirina x'in lowest'a hala esit olmadigini if sorgusu ile sorgula. Ilk basta esitledigimiz icin
-//eger esit degilse bu if sorgusu calisacak ve en kucuk sayi olarak isaretlenen lowest'i ilk basa alacak
-//let temp = arr[x], arr[x]=arr[lowest], arr[lowest]=temp
-// Ve return olarak arr'yi donder
+//2 tane array olustur. 1 tanesi merge birlestirme olacak, digeri mergeSort yapacak yani bolunmusleri birlestirme siralama yapacak.
+// MERGE(arr1, arr2)
+//result bos array degiskeni ve x ve y 0'a esit olan 3 degisken olustur
+//while dongusu olustur. KOSUL = x < arr1.length ve y < arr2.length diyoruz
+//while icinde if arr2[y] > arr1[x] den buyukse arr1[x]'i, yoksa arr2[y]'yi result icine push ediyoruz
+//yeni bir while dongusu ve x < arr1.length ise x++ ve result.push(arr1[x])
+//yeni bir while dongusu ve y < arr2.length ise y++ ve result.push(arr2[y])
+//ve RETURN RESULT
+// MERGESORT
+//eger arr.length  <= 1 ise arr'yi return yap
+//mid adinda let variable'iolustur ve Math.floor ile arr'nin yari uzunluguna esitle
+//let left variable i olustur ve mergeSort ile bolerek tekrar cagir. ==> mergeSort(arr.slice(0, mid));
+//let right variable i olustur ve mergeSort ile bolerek tekrar cagir. ==> mergeSort(arr.slice(mid));
+//ve MERGE metodu ile return yap buda mergeSort ile bolduklerimizi birlestirecek bizim icin
 
 // ### SOLUTION
-// function selectionSort(arr) {
-//   for (let x = 0; x < arr.length; x++) {
-//     let lowest = x;
-//     for (let y = x + 1; y < arr.length; y++) {
-//       if (arr[y] < arr[lowest]) {
-//         lowest = y;
-//       }
-//     }
-//     if (lowest !== x) {
-//       let temp = arr[x];
-//       arr[x] = arr[lowest];
-//       arr[lowest] = temp;
+// function merge(arr1, arr2) {
+//   let result = [];
+//   let x = 0;
+//   let y = 0;
+
+//   while (x < arr1.length && y < arr2.length) {
+//     if (arr1[x] < arr2[y]) {
+//       result.push(arr1[x]);
+//       x++;
+//     } else {
+//       result.push(arr2[y]);
+//       y++;
 //     }
 //   }
-//   return arr;
+
+//   while (x < arr1.length) {
+//     result.push(arr1[x]);
+//     x++;
+//   }
+//   while (y < arr2.length) {
+//     result.push(arr2[y]);
+//     y++;
+//   }
+//   return result;
+// }
+// function mergeSort(arr) {
+//   if (arr.length <= 1) return arr;
+//   let mid = Math.floor(arr.length / 2);
+//   let left = mergeSort(arr.slice(0, mid));
+//   let right = mergeSort(arr.slice(mid));
+
+//   return merge(left, right);
 // }
